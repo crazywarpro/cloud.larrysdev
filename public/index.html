@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#111027"><meta name="description" content="NEXO CLOUD — hébergement simple et rapide de tes images pour FiveM et le web.">
+  <title>NEXO CLOUD — Hébergement d'images</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="NEXO CLOUD accueil"><span class="brand-mark"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 30.5a9 9 0 0 1 2.2-17.7A13 13 0 0 1 36.8 17a7 7 0 0 1 .2 14H10Z"/><path d="m17 25 7-8 7 8m-7-8v17"/></svg></span><span>NEXO <b>CLOUD</b></span></a>
+    <nav><a href="#upload">Hébergement</a><a href="#gallery">Galerie</a><button class="icon-btn" id="themeBtn" aria-label="Changer de thème" title="Changer de thème">☾</button><button class="admin-link" id="adminOpen"><span>⌑</span> Administration</button></nav>
+  </header>
+  <main>
+    <section class="hero">
+      <div class="eyebrow"><span class="pulse"></span> HÉBERGEMENT D’IMAGES · FIVE M READY</div>
+      <h1>Ton image.<br><span>Ton lien. Ton cloud.</span></h1>
+      <p class="intro">Héberge tes visuels en quelques secondes et récupère un lien direct, prêt à être intégré dans FiveM, tes interfaces NUI ou tes sites.</p>
+      <div class="hero-stats"><div><strong id="imageCount">—</strong><small>Images hébergées</small></div><i></i><div><strong>24/7</strong><small>Accès aux liens</small></div><i></i><div><strong>Direct</strong><small>Liens publics</small></div></div>
+    </section>
+    <section class="upload-panel panel" id="upload">
+      <div class="panel-heading"><div><span class="section-kicker">COMMENCER</span><h2>Envoyer une image</h2><p>Glisse ton fichier ici ou sélectionne-le depuis ton appareil.</p></div><span class="cloud-badge">✧</span></div>
+      <form id="uploadForm">
+        <label class="dropzone" id="dropzone" for="imageInput"><input id="imageInput" type="file" accept="image/png,image/jpeg,image/webp,image/gif" hidden><span class="upload-icon"><svg viewBox="0 0 24 24"><path d="M12 16V4m0 0L7 9m5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg></span><strong id="dropTitle">Dépose ton image ici</strong><span id="dropSubtitle">ou <em>parcourir les fichiers</em></span><small>JPG · PNG · WEBP · GIF <b id="maxSize">• 10 Mo maximum</b></small></label>
+        <div class="selected-file" id="selectedFile" hidden><span>▧</span><span id="fileName"></span><button type="button" id="clearFile" aria-label="Retirer le fichier">×</button></div>
+        <button class="primary-btn upload-btn" id="uploadBtn" type="submit" disabled><span>↑</span> Héberger mon image <span class="btn-arrow">↗</span></button>
+      </form>
+      <div class="progress-wrap" id="progressWrap" hidden><div class="progress-label"><span id="progressText">Envoi en cours…</span><b id="progressPercent">0%</b></div><div class="progress-track"><span id="progressBar"></span></div></div>
+      <div class="result" id="result" hidden><div class="result-head"><span class="success-dot">✓</span><div><b>Ton image est en ligne !</b><small>Ton lien direct est prêt à être utilisé.</small></div></div><div class="link-copy"><input id="resultUrl" readonly><button id="copyResult">Copier</button></div><div class="result-actions"><a id="openResult" target="_blank" rel="noopener">Voir l’image ↗</a><button id="copyHtml">Copier le code HTML</button></div></div>
+      <p class="privacy-note"><span>♢</span> En envoyant une image, tu confirmes être autorisé à la partager publiquement.</p>
+    </section>
+    <section class="gallery-section" id="gallery"><div class="gallery-heading"><div><span class="section-kicker">BIBLIOTHÈQUE PUBLIQUE</span><h2>Dernières images</h2><p>Les derniers visuels hébergés sur NEXO CLOUD.</p></div><div class="gallery-tools"><span class="live-label"><i></i> EN LIGNE</span><button id="refreshBtn" class="refresh-btn" title="Actualiser">↻</button></div></div><div class="gallery-grid" id="galleryGrid"><div class="empty-state"><span>▧</span><b>Chargement de la galerie…</b></div></div><div class="gallery-footer" id="galleryFooter" hidden><span id="galleryTotal"></span><button id="showMore">Afficher plus ↓</button></div></section>
+  </main>
+  <footer><a class="footer-brand" href="/">NEXO <b>CLOUD</b></a><span>Un espace simple pour tes images.</span><span>© <span id="year"></span> NEXO CLOUD</span></footer>
+  <div class="toast" id="toast" role="status"></div>
+  <div class="modal-backdrop" id="adminModal" hidden><section class="modal panel"><button class="modal-close" id="adminClose" aria-label="Fermer">×</button><div class="modal-icon">⌑</div><span class="section-kicker">ZONE PRIVÉE</span><h2>Administration</h2><p>Connecte-toi pour gérer les images hébergées.</p><form id="adminForm"><label for="adminPassword">Mot de passe administrateur</label><input id="adminPassword" type="password" autocomplete="current-password" placeholder="Ton mot de passe" required><button class="primary-btn" type="submit">Accéder au tableau de bord ↗</button></form><div id="adminDashboard" hidden><div class="admin-stats"><div><strong id="adminCount">0</strong><small>Images</small></div><div><strong id="adminStorage">0 Mo</strong><small>Stockage utilisé</small></div></div><p class="admin-hint">Les images sont listées dans la galerie. Utilise le bouton de suppression sur une image pour la retirer.</p><button class="secondary-btn" id="adminLogout">Se déconnecter</button></div><p class="admin-error" id="adminError" hidden></p></section></div>
+  <script src="/app.js" defer></script>
+</body></html>
